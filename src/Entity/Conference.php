@@ -27,7 +27,7 @@ class Conference
     /**
      * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'conference', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: "conference", orphanRemoval: true)]
     private Collection $comments;
 
     public function __construct()
@@ -104,5 +104,10 @@ class Conference
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->city . " " . $this->year;
     }
 }
