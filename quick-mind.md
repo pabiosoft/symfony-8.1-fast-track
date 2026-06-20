@@ -37,3 +37,13 @@ symfony server:status
 ```bash
 kill idPID_RESULTAT_DU_STATUS
 ```
+
+5- Prendre des décisions avec un workflow
+5-a : Creer un workflos
+```bash
+symfony composer req workflow
+```
+5b: générez une représentation visuelle au format Mermaid 
+```bash
+symfony console workflow:dump comment --dump-format=mermaid
+```
