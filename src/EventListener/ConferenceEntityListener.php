@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EntityListener;
+namespace App\EventListener;
 
 use App\Entity\Conference;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
