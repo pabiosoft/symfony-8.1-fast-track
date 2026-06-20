@@ -16,6 +16,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use App\SpamChecker;
+use Symfony\Component\HttpKernel\Attribute\RateLimit;
 
 final class ConferenceController extends AbstractController
 {
@@ -29,6 +30,7 @@ final class ConferenceController extends AbstractController
         ]);
     }
 
+    #[RateLimit("comment_submission", methods: ["POST"])]
     #[Route("/conference/{slug:conference}", name: "conference")]
     public function show(
         Request $request,
