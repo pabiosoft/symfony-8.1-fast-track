@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use App\SpamChecker;
 
 final class ConferenceController extends AbstractController
 {
@@ -33,6 +34,7 @@ final class ConferenceController extends AbstractController
         Request $request,
         Conference $conference,
         CommentRepository $commentRepository,
+        SpamChecker $spamChecker,
         #[Autowire("%photo_dir%")] string $photoDir,
         #[MapQueryParameter(options: ["min_range" => 0])] int $offset = 0,
     ): Response {
@@ -50,6 +52,17 @@ final class ConferenceController extends AbstractController
             }
 
             $this->entityManager->persist($comment);
+
+            $context = [
+                "user_ip" => $request->getClientIp(),
+                "user_agent" => $request->headers->get("user-agent"),
+                "referrer" => $request->headers->get("referer"),
+                "permalink" => $request->getUri(),
+            ];
+            if (2 === $spamChecker->getSpamScore($comment, $context)) {
+                throw new \RuntimeException("Blatant spam, go away!");
+            }
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute("conference", ["slug" => $conference->getSlug()]);
