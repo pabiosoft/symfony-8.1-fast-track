@@ -24,3 +24,16 @@ symfony console secrets:reveal OPENAI_API_KEY
 ```bash
 symfony console messenger:consume async -vv
 ```
+4-a: Lancer des workers en arriere-plan
+
+```bash
+symfony run -d --watch=config,src,templates,vendor/composer/installed.json symfony console messenger:consume async -vv
+```
+4-b: Lister les workers en arriere-plan
+```bash
+symfony server:status
+```
+4-c: Stopper un Worker
+```bash
+kill idPID_RESULTAT_DU_STATUS
+```
