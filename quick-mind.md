@@ -18,3 +18,9 @@ symfony console secrets:set OPENAI_API_KEY
 ```bash
 symfony console secrets:reveal OPENAI_API_KEY
 ```
+
+4- Consommer des messages dans le terminal
+
+```bash
+symfony console messenger:consume async -vv
+```
