@@ -36,6 +36,7 @@ final class CommentFactory extends PersistentObjectFactory
             "conference" => ConferenceFactory::new(),
             "createdAt" => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
             "email" => self::faker()->email(),
+            "state" => "published",
             "text" => self::faker()->text(),
         ];
     }
